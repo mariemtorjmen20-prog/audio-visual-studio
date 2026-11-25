@@ -23,6 +23,6 @@ for i,line in enumerate(story['dialogue']):
         cues.append([line['speaker'],line['start']+j/rate, max(0.12,min(1,rms/3000))])
     cues.append([line['speaker'],line['start']+duration,0.12])
     clips.append(f'<div id="caption{i}" class="clip caption" data-start="{line["start"]}" data-duration="{duration}" data-track-index="3">{escape(line["text"])}</div>')
-template=(root/'template.html').read_text()
+template=(root/'template.html.tpl').read_text()
 (root/'index.html').write_text(template.replace('<!-- MEDIA -->','\n'.join(clips)).replace('/* CUES */',json.dumps(cues)),encoding='utf-8')
 print('Prepared',len(story['dialogue']),'voice clips and',len(cues),'mouth cues')

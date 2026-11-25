@@ -19,10 +19,15 @@ jobs:
           node-version: '22'
       # CPU-only speech and standard video tools; no paid API.
       - run: sudo apt-get update && sudo apt-get install -y ffmpeg espeak-ng
-      - run: python3 prepare.py
-      - run: npx --yes hyperframes lint
-      - run: npx --yes hyperframes render --output final.mp4
-      - run: python3 verify.py
+      - name: Run recovery worker (prepare, lint, render, verify)
+        run: python3 recovery.py
+      - name: Upload diagnostics even on failure
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: recovery-diagnostics
+          path: pilot/diagnostics/
+          if-no-files-found: warn
       - uses: actions/upload-artifact@v4
         with:
           name: talking-cartoon-pilot

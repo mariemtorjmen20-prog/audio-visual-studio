@@ -25,3 +25,6 @@ No GPU is required for speech generation. Keep one render job running at once.
 GitHub Actions performs the technical test automatically on branch pushes.
 Download the artifact from the Actions run. Technical verification does not certify
 speech intelligibility, artwork quality or accurate lip sync.
+
+## Recovery worker
+Run `python recovery.py` from pilot. The worker retries recognized transient errors up to three attempts, removes only an identical obsolete template when lint detects duplicate roots, and stops on unknown or QA failures. Diagnostics are uploaded even on failure. This is deterministic recovery, not an autonomous LLM debugger. No main branch writes.
