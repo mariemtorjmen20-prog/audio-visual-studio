@@ -1,0 +1,33 @@
+{
+  "title": "We're all one big family",
+  "theme": "Workplace manipulation and unequal reciprocity",
+  "width": 720,
+  "height": 1280,
+  "duration": 20,
+  "dialogue": [
+    {
+      "speaker": "boss",
+      "start": 1,
+      "end": 4,
+      "text": "We're all one big family here!"
+    },
+    {
+      "speaker": "employee",
+      "start": 5,
+      "end": 9,
+      "text": "Then why am I the only one working?"
+    },
+    {
+      "speaker": "boss",
+      "start": 10,
+      "end": 14,
+      "text": "Every family needs someone responsible."
+    },
+    {
+      "speaker": "employee",
+      "start": 15,
+      "end": 19,
+      "text": "I should have been adopted."
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+name: HyperFrames talking cartoon pilot
+on:
+  push:
+    branches: [agentgpt-hyperframes-workplace-satire]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    defaults:
+      run:
+        working-directory: pilot
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      # CPU-only speech and standard video tools; no paid API.
+      - run: sudo apt-get update && sudo apt-get install -y ffmpeg espeak-ng
+      - name: Run recovery worker (prepare, lint, render, verify)
+        run: python3 recovery.py
+      - name: Upload diagnostics even on failure
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: recovery-diagnostics
+          path: pilot/diagnostics/
+          if-no-files-found: warn
+      - uses: actions/upload-artifact@v4
+        with:
+          name: talking-cartoon-pilot
+          path: |
+            pilot/final.mp4
+            pilot/qa.json
+          if-no-files-found: error
